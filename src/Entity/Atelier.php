@@ -27,6 +27,18 @@ class Atelier
      */
     private $nbPlacesMaxi;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Vacation::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $vacations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Theme::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $themes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +64,30 @@ class Atelier
     public function setNbPlacesMaxi(int $nbPlacesMaxi): self
     {
         $this->nbPlacesMaxi = $nbPlacesMaxi;
+
+        return $this;
+    }
+
+    public function getVacations(): ?Vacation
+    {
+        return $this->vacations;
+    }
+
+    public function setVacations(?Vacation $vacations): self
+    {
+        $this->vacations = $vacations;
+
+        return $this;
+    }
+
+    public function getThemes(): ?Theme
+    {
+        return $this->themes;
+    }
+
+    public function setThemes(?Theme $themes): self
+    {
+        $this->themes = $themes;
 
         return $this;
     }
