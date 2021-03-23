@@ -77,6 +77,18 @@ class Licencie
      */
     private $cleWifi;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Qualite::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $qualite;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Club::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $club;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -222,6 +234,30 @@ class Licencie
     public function setCleWifi(?string $cleWifi): self
     {
         $this->cleWifi = $cleWifi;
+
+        return $this;
+    }
+
+    public function getQualite(): ?Qualite
+    {
+        return $this->qualite;
+    }
+
+    public function setQualite(Qualite $qualite): self
+    {
+        $this->qualite = $qualite;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->club;
+    }
+
+    public function setClub(Club $club): self
+    {
+        $this->club = $club;
 
         return $this;
     }

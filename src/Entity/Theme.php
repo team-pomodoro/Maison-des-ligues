@@ -22,6 +22,12 @@ class Theme
      */
     private $libelle;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Atelier::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ateliers;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class Theme
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getAteliers(): ?Atelier
+    {
+        return $this->ateliers;
+    }
+
+    public function setAteliers(?Atelier $ateliers): self
+    {
+        $this->ateliers = $ateliers;
 
         return $this;
     }
