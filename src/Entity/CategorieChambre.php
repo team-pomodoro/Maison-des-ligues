@@ -22,6 +22,12 @@ class CategorieChambre
      */
     private $libelleCategorie;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Proposer::class, inversedBy="categorie")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tarifs;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class CategorieChambre
     public function setLibelleCategorie(string $libelleCategorie): self
     {
         $this->libelleCategorie = $libelleCategorie;
+
+        return $this;
+    }
+
+    public function getTarifs(): ?Proposer
+    {
+        return $this->tarifs;
+    }
+
+    public function setTarifs(?Proposer $tarifs): self
+    {
+        $this->tarifs = $tarifs;
 
         return $this;
     }
