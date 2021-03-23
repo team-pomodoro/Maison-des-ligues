@@ -22,6 +22,12 @@ class Qualite
      */
     private $LibelleQualite;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Licencie::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $licencies;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class Qualite
     public function setLibelleQualite(string $LibelleQualite): self
     {
         $this->LibelleQualite = $LibelleQualite;
+
+        return $this;
+    }
+
+    public function getLicencies(): ?Licencie
+    {
+        return $this->licencies;
+    }
+
+    public function setLicencies(?Licencie $licencies): self
+    {
+        $this->licencies = $licencies;
 
         return $this;
     }

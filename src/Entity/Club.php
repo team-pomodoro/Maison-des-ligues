@@ -47,6 +47,12 @@ class Club
      */
     private $tel;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Licencie::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $licencies;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,18 @@ class Club
     public function setTel(string $tel): self
     {
         $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getLicencies(): ?Licencie
+    {
+        return $this->licencies;
+    }
+
+    public function setLicencies(?Licencie $licencies): self
+    {
+        $this->licencies = $licencies;
 
         return $this;
     }

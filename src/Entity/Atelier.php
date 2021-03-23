@@ -28,7 +28,7 @@ class Atelier
     private $nbPlacesMaxi;
 
     /**
-     * @ORM\OneToMany(targetEntity=Vacation::class)
+     * @ORM\OneToMany(targetEntity=Vacation::class, mappedBy=Vacation::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $vacations;
