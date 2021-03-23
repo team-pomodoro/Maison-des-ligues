@@ -22,6 +22,11 @@ class Inscription
      */
     private $dateInscription;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Nuite::class)
+     */
+    private $nuites;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class Inscription
     public function setDateInscription(\DateTimeInterface $dateInscription): self
     {
         $this->dateInscription = $dateInscription;
+
+        return $this;
+    }
+
+    public function getNuites(): ?Nuite
+    {
+        return $this->nuites;
+    }
+
+    public function setNuites(?Nuite $nuites): self
+    {
+        $this->nuites = $nuites;
 
         return $this;
     }
