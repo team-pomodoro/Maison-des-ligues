@@ -9,8 +9,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=CompteRepository::class)
  */
-class Compte implements UserInterface
-{
+class Compte implements UserInterface {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -38,19 +38,18 @@ class Compte implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $email;
+    
+    private $plainPassword;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNumLicence(): ?string
-    {
+    public function getNumLicence(): ?string {
         return $this->numLicence;
     }
 
-    public function setNumLicence(string $numLicence): self
-    {
+    public function setNumLicence(string $numLicence): self {
         $this->numLicence = $numLicence;
 
         return $this;
@@ -61,16 +60,14 @@ class Compte implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
-    {
+    public function getUsername(): string {
         return (string) $this->numLicence;
     }
 
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
-    {
+    public function getRoles(): array {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
@@ -78,8 +75,7 @@ class Compte implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
+    public function setRoles(array $roles): self {
         $this->roles = $roles;
 
         return $this;
@@ -88,16 +84,25 @@ class Compte implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
-    {
+    public function getPassword(): string {
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
-    {
+    public function setPassword(string $password): self {
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getPlainPassword() {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword) {
+        $this->plainPassword = $plainPassword;
+        // forces the object to look "dirty" to Doctrine. Avoids
+        // Doctrine *not* saving this entity, if only plainPassword changes
+        $this->password = null;
     }
 
     /**
@@ -106,29 +111,26 @@ class Compte implements UserInterface
      *
      * @see UserInterface
      */
-    public function getSalt(): ?string
-    {
+    public function getSalt(): ?string {
         return null;
     }
 
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
-    {
+    public function eraseCredentials() {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
-    {
+    public function setEmail(string $email): self {
         $this->email = $email;
 
         return $this;
     }
+
 }
