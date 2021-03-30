@@ -35,6 +35,30 @@ class CompteRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->persist($user);
         $this->_em->flush();
     }
+    
+    /**
+     * verifie que le numero de licence existe deja dans la bdd
+     * @return bool
+     */
+    public function numLicenceExist(int $num_licence): bool
+    {
+        $entityManager = $this->getEntityManager();
+
+//        $query = $entityManager->createQuery();//->setParameter('num_licence', $num_licence);
+        
+        $query = $entityManager->createQueryBuilder();
+       
+        $query->select('c.numLicence');
+        $query->from('App\Entity\Compte', 'c');
+        $query->where('c.numLicence = :num_licence');
+        $query->setParameter('num_licence', $num_licence);
+        
+        
+// 'SELECT num_licence
+//            FROM App\Entity\Compte
+//            WHERE num_licence = :num_licence'
+        return !empty($query->getQuery()->getResult());
+    }
 
     // /**
     //  * @return Compte[] Returns an array of Compte objects

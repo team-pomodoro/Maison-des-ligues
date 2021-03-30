@@ -1,0 +1,13 @@
+{# empty Twig template #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="mb-3">
+            Vous etes connecter en temps que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Deconexion</a>
+        </div>
+    {% endif %}
+{% endblock body %}
