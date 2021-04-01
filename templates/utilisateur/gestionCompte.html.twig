@@ -1,0 +1,12 @@
+{# templates/registration/register.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <br/>
+
+    <p>Numéro de Licence : {{ app.user.username }}</p>
+{#    <p>Prénom : {{ app.user.firstname }}</p>#}
+    <p>E-mail : {{ app.user.email }}</p>
+{% endblock %}
