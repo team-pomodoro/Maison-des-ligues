@@ -6,7 +6,10 @@
 {% block body %}
     <br/>
 
-    <p>Numéro de Licence : {{ app.user.username }}</p>
-{#    <p>Prénom : {{ app.user.firstname }}</p>#}
+    <p>Numéro de Licence : {{ app.user.username }}</p>    
+    <p>Nom : {{ app.user.nom }}</p>
+    <p>Prénom : {{ app.user.prenom }}</p>
+    <p>Date de naissance : {{ app.user.dateNaissance }}</p>
     <p>E-mail : {{ app.user.email }}</p>
+    <button class="" type="button">Modidier</button>
 {% endblock %}
