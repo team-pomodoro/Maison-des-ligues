@@ -20,7 +20,7 @@ class GestionCompteController extends AbstractController {
 
         $user = $this->getUser();
         
-        //Gestion du compte
+        //Gestion du compted 
         //Changer numLicence, mail, numero de tel, mdp
         $user->getEmail();
         
