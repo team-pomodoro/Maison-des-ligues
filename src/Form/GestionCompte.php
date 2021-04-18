@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Form;
 
 use App\Entity\Compte;
@@ -10,25 +11,27 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class GestionCompte extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class GestionCompte extends AbstractType {
+
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('email', EmailType::class)
-            ->add('numLicence', TextType::class)
-            ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
-            ))
+                ->add('numLicence', TextType::class,['disabled'=>true])
+                ->add('nom', TextType::class,['disabled'=>true])
+                ->add('prenom', TextType::class,['disabled'=>true])
+                ->add('email', EmailType::class,['disabled'=>true])
+                ->add('plainPassword', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'first_options' => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat Password'),
+                    'disabled'=>true,
+                ))
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => Compte::class,
         ));
     }
+
 }
