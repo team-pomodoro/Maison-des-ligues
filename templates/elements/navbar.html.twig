@@ -21,16 +21,24 @@
       <li class="nav-item">
         <a class="nav-link" href="#">About</a>
       </li>
+      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Connecter en tant que <span>{{ app.user.username }}</span></a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="/monCompte">Modifier mon profil</a>
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
+          <a class="dropdown-item" href="/logout">Deconnexion</a>
         </div>
       </li>
+      {#<li class="nav-item">
+          <div class="nav-link">Connecter en tant que <span>{{ app.user.username }}</span></div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Deconnexion</a>
+      </li>#}
+      {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search">

@@ -6,8 +6,8 @@
 
 {% block body %}
     {% if app.user %}
-        <div class="mb-3">
+{#        <div class="mb-3">
             Vous etes connecter en temps que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Deconexion</a>
-        </div>
+        </div>#}
     {% endif %}
 {% endblock body %}
