@@ -57,6 +57,12 @@ class Hotel
      */
     private $mail;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Proposer::class, inversedBy="hotel")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tarifs;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +160,18 @@ class Hotel
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getTarifs(): ?Proposer
+    {
+        return $this->tarifs;
+    }
+
+    public function setTarifs(?Proposer $tarifs): self
+    {
+        $this->tarifs = $tarifs;
 
         return $this;
     }
