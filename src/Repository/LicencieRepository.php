@@ -19,6 +19,22 @@ class LicencieRepository extends ServiceEntityRepository
         parent::__construct($registry, Licencie::class);
     }
 
+    
+    /** Modifie les donner de la table licencie depuis la gestion de compte**/
+    public function updateLicencier($num_licencier, $prenom, $nom, $mail)
+{
+    return $this->createQueryBuilder()
+        ->update('models\Licencier', 'l')
+        ->set('u.prenom', ':prenom')
+        ->set('u.nom', ':nom')
+        ->set('u.mail', ':mail')
+        ->andWhere('l.num_licencier = :num_licencier')
+        ->setParameter('prenom', $prenom)
+        ->setParameter('nom', $nom)
+        ->setParameter('mail', $mail)
+        ->setParameter('num_licencier', $num_licencier)
+        ->getQuery()->exexute();
+}
     // /**
     //  * @return Licencie[] Returns an array of Licencie objects
     //  */
