@@ -29,8 +29,10 @@
     {{ form_widget(form.prenom) }}
     <label>Adresse mail</label>
     {{ form_widget(form.email) }}
-    {{  form_row(form._token) }}
+
+
     <div id="divModifier" class="invisible">
+
         {#<label>mot de passe</label>
         {{ form_widget(form.plainPassword.first) }}
         <label>verifier mot de passe</label>

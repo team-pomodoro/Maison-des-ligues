@@ -15,6 +15,8 @@ use App\Entity\Compte;
 
 class GestionCompteController extends AbstractController {
 
+    private CompteRepository $compteRepository;
+    
     /**
      * @Route("/monCompte", name="app_gestion_compte")
      */
@@ -22,15 +24,6 @@ class GestionCompteController extends AbstractController {
         
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY', null, 'User tried to access a page without having being connected');
 
-        $user = $this->getUser();
-        
-        //Gestion du compted 
-        //Changer numLicence, mail, numero de tel, mdp
-        $user->getEmail();
-        
-        
-        
-        //modifier
         
         $this->compteRepository = $entityManagerCompte->getRepository(Compte::class);
         // 1) build the form
@@ -39,8 +32,9 @@ class GestionCompteController extends AbstractController {
 
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
+//        var_dump($form->getErrors(true));die;
         if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->getData());
+
             // 3) Encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
@@ -119,4 +113,5 @@ class GestionCompteController extends AbstractController {
 //        );
 //    }
 
+    
 }
