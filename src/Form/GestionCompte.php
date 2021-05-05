@@ -19,12 +19,12 @@ class GestionCompte extends AbstractType {
                 ->add('nom', TextType::class,['disabled'=>true])
                 ->add('prenom', TextType::class,['disabled'=>true])
                 ->add('email', EmailType::class,['disabled'=>true])
-                ->add('plainPassword', RepeatedType::class, array(
-                    'type' => PasswordType::class,
-                    'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password'),
-                    'disabled'=>true,
-                ))
+//                ->add('plainPassword', RepeatedType::class, array(
+//                    'type' => PasswordType::class,
+//                    'first_options' => array('label' => 'Password'),
+//                    'second_options' => array('label' => 'Repeat Password'),
+//                    'disabled'=>true,
+//                ))
         ;
     }
 

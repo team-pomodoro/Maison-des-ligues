@@ -18,6 +18,30 @@ class LicencieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Licencie::class);
     }
+    
+     /**
+     * verifie que le numero de licence existe deja dans la table licencie
+     * @return bool
+     */
+        public function numLicenceExiste(int $num_licence): bool
+    {
+        $entityManager = $this->getEntityManager();
+
+//        $query = $entityManager->createQuery();//->setParameter('num_licence', $num_licence);
+        
+        $query = $entityManager->createQueryBuilder();
+       
+        $query->select('l.numLicence');
+        $query->from('App\Entity\numLicence', 'l');
+        $query->where('l.numLicence = :num_licence');
+        $query->setParameter('num_licence', $num_licence);
+        
+        
+// 'SELECT num_licence
+//            FROM App\Entity\Compte
+//            WHERE num_licence = :num_licence'
+        return !empty($query->getQuery()->getResult());
+    }
 
     // /**
     //  * @return Licencie[] Returns an array of Licencie objects
@@ -35,6 +59,7 @@ class LicencieRepository extends ServiceEntityRepository
         ;
     }
     */
+    
 
     /*
     public function findOneBySomeField($value): ?Licencie
