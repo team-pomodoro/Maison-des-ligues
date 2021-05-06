@@ -61,26 +61,40 @@ class RegistrationController extends Controller {
 
 //            return $this->redirectToRoute('app_login');
             } elseif ($this->licencieRepository->numLicenceExiste($user->getNumLicence())) {
+                 //// créer le lien d'activation
+                $urlActive = $this->randString();
+                $user->setUrlActive($urlActive);
+                
+                //persister les donénes
                 $entityManager = $this->getDoctrine()->getManager();
 
 
                 $entityManager->persist($user);
                 $entityManager->flush();
-                //// ... do any other work - like sending them an email, etc
-                // maybe set a "flash" success message for the user
+                
+               
+                ///envoyer lien avec url active
+
                 return $this->redirectToRoute('app_login');
             } else {
                 $this->addFlash('warning', 'Ce numero de licence n\'existe pas');
                 $referer = $request->headers->get('referer');
                 return $this->redirect($referer);
             }
-
-            
         }
         return $this->render(
-                            'security/register.html.twig',
-                            array('form' => $form->createView())
-            );
+                        'security/register.html.twig',
+                        array('form' => $form->createView())
+        );
+    }
+
+    function randString($length = 20) {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $chars[rand(0, strlen($chars) - 1)];
+        }
+        return $string;
     }
 
 }
