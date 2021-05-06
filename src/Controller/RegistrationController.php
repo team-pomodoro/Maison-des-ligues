@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompteRepository;
 use App\Repository\LicencieRepository;
 use App\Entity\Licencie;
+use Symfony\Component\HttpFoundation\Response;
 
 trait Referer {
 
@@ -87,6 +88,22 @@ class RegistrationController extends Controller {
                         array('form' => $form->createView())
         );
     }
+    
+    
+    
+    /**
+     * @Route("/register/{id}", name="user_registration_validate")
+     */
+    public function registerValidate(string $id, Request $request, EntityManagerInterface $entityManagerCompte): Response {
+        
+        
+        return $this->render('security/registerValid.html.twig');
+    }
+    
+    
+    
+    
+    
 
     function randString($length = 20) {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
