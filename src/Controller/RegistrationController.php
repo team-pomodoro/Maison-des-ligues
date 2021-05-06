@@ -96,6 +96,12 @@ class RegistrationController extends Controller {
      */
     public function registerValidate(string $id, Request $request, EntityManagerInterface $entityManagerCompte): Response {
         
+        $this->compteRepository = $entityManagerCompte->getRepository(Compte::class);
+        
+        
+        if($this->compteRepository->urlActiveExist($id)) {
+            
+        }
         
         return $this->render('security/registerValid.html.twig');
     }

@@ -54,12 +54,28 @@ class CompteRepository extends ServiceEntityRepository implements PasswordUpgrad
         $query->setParameter('num_licence', $num_licence);
         
         
-// 'SELECT num_licence
-//            FROM App\Entity\Compte
-//            WHERE num_licence = :num_licence'
         return !empty($query->getQuery()->getResult());
     }
 
+        public function urlActiveExist(string $url_Active): bool
+    {
+        $entityManager = $this->getEntityManager();
+
+//        $query = $entityManager->createQuery();//->setParameter('num_licence', $num_licence);
+        
+        $query = $entityManager->createQueryBuilder();
+       
+        $query->select('c.urlActive');
+        $query->from('App\Entity\Compte', 'c');
+        $query->where('c.urlActive = :url_Active');
+        $query->setParameter('url_Active', $url_Active);
+        
+        
+        return !empty($query->getQuery()->getResult());
+    }
+    
+    
+    
     // /**
     //  * @return Compte[] Returns an array of Compte objects
     //  */
