@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompteRepository;
+use App\Repository\LicencieRepository;
+use App\Entity\Licencie;
 
 trait Referer {
 
@@ -26,12 +28,14 @@ trait Referer {
 class RegistrationController extends Controller {
 
     private CompteRepository $compteRepository;
+    private LicencieRepository $licencieRepository;
 
     /**
      * @Route("/register", name="user_registration")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManagerCompte) {
 
+        $this->licencieRepository = $entityManagerCompte->getRepository(Licencie::class);
         $this->compteRepository = $entityManagerCompte->getRepository(Compte::class);
         // 1) build the form
         $user = new Compte();
@@ -47,16 +51,16 @@ class RegistrationController extends Controller {
 
             // 4) save the User!
             if ($this->compteRepository->numLicenceExist($user->getNumLicence())) {
-//                var_dump($this->compteRepository->numLicenceExist($user->getNumLicence()));exit;
+                //                var_dump($this->compteRepository->numLicenceExist($user->getNumLicence()));exit;
 
 
-                $this->addFlash('warning', 'uh oh, that didn\'t quite work right');
+                $this->addFlash('warning', 'Un compte possède deja ce numéro de licence');
 
                 $referer = $request->headers->get('referer');
                 return $this->redirect($referer);
 
 //            return $this->redirectToRoute('app_login');
-            } else {
+            } elseif ($this->licencieRepository->numLicenceExiste($user->getNumLicence())) {
                 $entityManager = $this->getDoctrine()->getManager();
 
 
@@ -65,13 +69,18 @@ class RegistrationController extends Controller {
                 //// ... do any other work - like sending them an email, etc
                 // maybe set a "flash" success message for the user
                 return $this->redirectToRoute('app_login');
+            } else {
+                $this->addFlash('warning', 'Ce numero de licence n\'existe pas');
+                $referer = $request->headers->get('referer');
+                return $this->redirect($referer);
             }
-        }
 
+            
+        }
         return $this->render(
-                        'security/register.html.twig',
-                        array('form' => $form->createView())
-        );
+                            'security/register.html.twig',
+                            array('form' => $form->createView())
+            );
     }
 
 }

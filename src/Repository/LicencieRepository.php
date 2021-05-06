@@ -32,14 +32,10 @@ class LicencieRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
        
         $query->select('l.numLicence');
-        $query->from('App\Entity\numLicence', 'l');
+        $query->from('App\Entity\Licencie', 'l');
         $query->where('l.numLicence = :num_licence');
         $query->setParameter('num_licence', $num_licence);
         
-        
-// 'SELECT num_licence
-//            FROM App\Entity\Compte
-//            WHERE num_licence = :num_licence'
         return !empty($query->getQuery()->getResult());
     }
 

@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class GestionCompte extends AbstractType {
 
+    
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('numLicence', TextType::class,['disabled'=>true,'required'=>false])

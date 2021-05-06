@@ -12,20 +12,25 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompteRepository;
 use App\Entity\Compte;
+use App\Repository\LicencieRepository;
+use App\Entity\Licencie;
 
 class GestionCompteController extends AbstractController {
 
     private CompteRepository $compteRepository;
-    
+    private LicencieRepository $licencieRepository;
+
     /**
      * @Route("/monCompte", name="app_gestion_compte")
      */
     public function gestionCompte(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManagerCompte) {
-        
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY', null, 'User tried to access a page without having being connected');
 
-        
         $this->compteRepository = $entityManagerCompte->getRepository(Compte::class);
+        $this->licencieRepository = $entityManagerCompte->getRepository(Licencie::class);
+
+
         // 1) build the form
         $user = $this->getUser();
         $form = $this->createForm(GestionCompte::class, $user);
@@ -61,14 +66,13 @@ class GestionCompteController extends AbstractController {
                 return $this->redirectToRoute('app_gestion_compte');
             }
         }
-        
-        
-        
+
+
+
         return $this->render('utilisateur/gestionCompte.html.twig',
-                array('form' => $form->createView()));
+                        array('form' => $form->createView()));
     }
-    
-    
+
 //        public function modifier(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManagerCompte) {
 //
 //        $this->compteRepository = $entityManagerCompte->getRepository(Compte::class);
@@ -112,6 +116,4 @@ class GestionCompteController extends AbstractController {
 //                        array('form' => $form->createView())
 //        );
 //    }
-
-    
 }

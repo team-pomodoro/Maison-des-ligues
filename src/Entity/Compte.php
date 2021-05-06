@@ -38,7 +38,6 @@ class Compte implements UserInterface {
      * @ORM\Column(type="string", length=255)
      */
     private $email;
-    
     private $plainPassword;
 
     /**
@@ -55,6 +54,11 @@ class Compte implements UserInterface {
      * @ORM\Column(type="date", nullable=true)
      */
     private $dateNaissance;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $active = false;
 
     public function getId(): ?int {
         return $this->id;
@@ -148,38 +152,41 @@ class Compte implements UserInterface {
         return $this;
     }
 
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->nom;
     }
 
-    public function setNom(?string $nom): self
-    {
+    public function setNom(?string $nom): self {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
+    public function getPrenom(): ?string {
         return $this->prenom;
     }
 
-    public function setPrenom(?string $prenom): self
-    {
+    public function setPrenom(?string $prenom): self {
         $this->prenom = $prenom;
 
         return $this;
     }
 
-    public function getDateNaissance(): ?\DateTimeInterface
-    {
+    public function getDateNaissance(): ?\DateTimeInterface {
         return $this->dateNaissance;
     }
-
-    public function setDateNaissance(?\DateTimeInterface $dateNaissance): self
-    {
+    
+    public function setDateNaissance(?\DateTimeInterface $dateNaissance): self {
         $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+        public function getActive(): ?string {
+        return $this->active;
+    }
+
+    public function setActive(?string $active): self {
+        $this->active = $active;
 
         return $this;
     }
