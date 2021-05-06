@@ -60,6 +60,11 @@ class Compte implements UserInterface {
      */
     private $active = false;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $urlActive;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -175,18 +180,29 @@ class Compte implements UserInterface {
     public function getDateNaissance(): ?\DateTimeInterface {
         return $this->dateNaissance;
     }
-    
+
     public function setDateNaissance(?\DateTimeInterface $dateNaissance): self {
         $this->dateNaissance = $dateNaissance;
 
         return $this;
     }
-        public function getActive(): ?string {
+
+    public function getActive(): ?string {
         return $this->active;
     }
 
     public function setActive(?string $active): self {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getUrlActive(): ?string {
+        return $this->urlActive;
+    }
+
+    public function setUrlActive(?string $urlActive): self {
+        $this->urlActive = $urlActive;
 
         return $this;
     }
