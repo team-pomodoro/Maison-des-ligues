@@ -10,20 +10,20 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210506072244 extends AbstractMigration
+final class Version20210506130718 extends AbstractMigration
 {
-    public function getDescription(): string
+    public function getDescription() : string
     {
         return '';
     }
 
-    public function up(Schema $schema): void
+    public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE atelier (id INT AUTO_INCREMENT NOT NULL, themes_id INT NOT NULL, libelle VARCHAR(255) NOT NULL, nb_places_maxi INT NOT NULL, INDEX IDX_E1BB182394F4A9D2 (themes_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE categorie_chambre (id INT AUTO_INCREMENT NOT NULL, tarifs_id INT NOT NULL, libelle_categorie VARCHAR(255) NOT NULL, INDEX IDX_9A8A4A5DF5F3287F (tarifs_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE club (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, adresse1 VARCHAR(255) NOT NULL, adresse2 VARCHAR(255) DEFAULT NULL, code_postal VARCHAR(255) NOT NULL, ville VARCHAR(255) NOT NULL, tel VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE compte (id INT AUTO_INCREMENT NOT NULL, num_licence VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, nom VARCHAR(255) DEFAULT NULL, prenom VARCHAR(255) DEFAULT NULL, date_naissance DATE DEFAULT NULL, active TINYINT(1) DEFAULT \'0\' NOT NULL, url_active VARCHAR(20) DEFAULT NULL, UNIQUE INDEX UNIQ_CFF65260D8A9FCA1 (num_licence), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE compte (id INT AUTO_INCREMENT NOT NULL, num_licence VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, active TINYINT(1) DEFAULT \'0\' NOT NULL, url_active VARCHAR(20) DEFAULT NULL, UNIQUE INDEX UNIQ_CFF65260D8A9FCA1 (num_licence), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE hotel (id INT AUTO_INCREMENT NOT NULL, tarifs_id INT NOT NULL, code_hotel VARCHAR(255) NOT NULL, nom_hotel VARCHAR(255) NOT NULL, adresse_hotel1 VARCHAR(255) NOT NULL, adresse_hotel2 VARCHAR(255) DEFAULT NULL, code_postal VARCHAR(255) NOT NULL, ville VARCHAR(255) NOT NULL, tel VARCHAR(255) NOT NULL, mail VARCHAR(255) NOT NULL, INDEX IDX_3535ED9F5F3287F (tarifs_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE inscription (id INT AUTO_INCREMENT NOT NULL, nuites_id INT DEFAULT NULL, date_inscription DATETIME NOT NULL, INDEX IDX_5E90F6D6A9DD7CE0 (nuites_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE licencie (id INT AUTO_INCREMENT NOT NULL, qualite_id INT NOT NULL, club_id INT NOT NULL, num_licence VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, adresse_licencie1 VARCHAR(255) NOT NULL, adresse_licencie2 VARCHAR(255) DEFAULT NULL, code_postal VARCHAR(255) NOT NULL, ville VARCHAR(255) NOT NULL, tel VARCHAR(255) DEFAULT NULL, mail VARCHAR(255) DEFAULT NULL, date_inscrit DATETIME NOT NULL, date_enregistrement VARCHAR(255) DEFAULT NULL, cle_wifi VARCHAR(255) DEFAULT NULL, INDEX IDX_3B755612A6338570 (qualite_id), INDEX IDX_3B75561261190A32 (club_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -41,7 +41,7 @@ final class Version20210506072244 extends AbstractMigration
         $this->addSql('ALTER TABLE theme ADD CONSTRAINT FK_9775E708B1409BC9 FOREIGN KEY (ateliers_id) REFERENCES atelier (id)');
     }
 
-    public function down(Schema $schema): void
+    public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE theme DROP FOREIGN KEY FK_9775E708B1409BC9');

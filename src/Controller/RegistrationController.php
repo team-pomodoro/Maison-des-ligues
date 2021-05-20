@@ -100,7 +100,10 @@ class RegistrationController extends Controller {
         
         
         if($this->compteRepository->urlActiveExist($id)) {
-            
+           if(!$this->compteRepository->isActive($id)){
+               $this->compteRepository->activerCompte($id);
+           }
+           
         }
         
         return $this->render('security/registerValid.html.twig');
