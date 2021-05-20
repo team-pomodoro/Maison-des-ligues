@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Créer un atelier
+{% endblock %}
+ {% block body %}
+	{% if app.user %}
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER')  %}
+      <div class="container" style="padding-top: 10px;padding-bottom: 10px;">
+				<h1 class="text-center">Création d'une nouvelle vacation :</h1>
+				{{ form_start(formVacation)}}
+        <div class="form-row">
+          <div class="form-group col-md-6" id="some-custom-id">
+            {{ form_label(formVacation.dateHeureDebut, 'Heure de début : ') }}
+            {{ form_widget(formVacation.dateHeureDebut, { 'attr' :{ 'class': "form-control"}}) }}
+          </div>
+          <div class="form-group col-md-6" id="some-custom-id">
+            {{ form_label(formVacation.dateHeureFin, 'Heure de fin :') }}
+            {{ form_widget(formVacation.dateHeureFin, { 'attr' :{'class': "form-control"}}) }}
+          </div>
+           <div class="form-group col-md-6" id="some-custom-id" style="display:none;">
+            {{ form_label(formVacation.Libelle, 'Libelle :') }}
+            {{ form_widget(formVacation.Libelle, { 'attr' :{'class': "form-control", "readonly": "true", 'value' : ''}}) }}
+          </div>
+        </div>
+      <button type="submit" class="btn btn-success">Créer</button>
+    </div>
+    {{form_end(formVacation)}}
+        
+      
+</div>
+
+ 
+</script>
+{% else %}
+      <div class="alert alert-danger">Votre compte n'a pas le role nécessaire pour accéder à cette page. Retourner vers <a href="{{ path('home') }}">l'accueil</a></div>
+{% endif %}
+{% else %}
+      <div class="alert alert-danger">Vous n'êtes pas connecté. Retourner vers <a href="{{ path('home') }}">l'accueil</a> ou connectez-vous <a href="{{ path('app_login') }}">par ici.</a></div>
+{% endif %}
+
+
+
+  
+{% endblock %}
+
+

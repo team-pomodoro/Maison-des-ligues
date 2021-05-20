@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Créer un atelier
+{% endblock %}
+ {% block body %}
+ 
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	{% if app.user %}
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER')  %}
+      <div class="container" style="padding-top: 10px;padding-bottom: 10px;">
+				<h1 class="text-center">Création d'une nouvelle vacation :</h1>
+				{{ form_start(formTheme)}}
+        <div class="form-row">
+          <div class="form-group col-7">
+            {{ form_label(formTheme.libelle, 'Libellé du thème') }}
+            {{ form_widget(formTheme.libelle, { 'attr' :{'placeholder': 'Saisir le libellé du theme', 'class': "form-control"}}) }}
+          </div>
+          <div class="form-group col-5">
+            {{ form_label(formTheme.ateliers, 'Ateliers correspondant :') }}
+            {{ form_widget(formTheme.ateliers) }}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">Créer</button>
+      </div>
+    {{form_end(formTheme)}}
+        
+      
+</div>
+
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.select_ateliers').select2();
+  });
+</script>
+
+{% else %}
+      <div class="alert alert-danger">Votre compte n'a pas le role nécessaire pour accéder à cette page. Retourner vers <a href="{{ path('home') }}">l'accueil</a></div>
+{% endif %}
+{% else %}
+      <div class="alert alert-danger">Vous n'êtes pas connecté. Retourner vers <a href="{{ path('home') }}">l'accueil</a> ou connectez-vous <a href="{{ path('app_login') }}">par ici.</a></div>
+{% endif %}
+
+
+
+  
+{% endblock %}
+
+

@@ -1,0 +1,32 @@
+{# empty Twig template #}
+{% extends 'base.html.twig' %}
+
+{% block title %} Toutes les vacations {% endblock %}
+{% block body %}
+<style>
+  .container{max-width: 95%!important;}
+</style>
+  <div class="container" style="padding-top:10px;">
+    <h1 style="text-center"> Liste des vacations </h1>
+    <table class="table table-bordered table-striped table-info">
+      <thead class="table-danger">
+        <tr>
+          <th> Libellé</th>
+          <th> Horaire de début </th>
+          <th> Horaire de fin </th>
+          <th> Actions </th>
+        </tr>
+      </thead>
+      {% for vacation in vacations %}
+        <tr>
+          <td>{{ vacation.libelle}}</td>
+          <td>{{ vacation.dateHeureDebut | format_datetime('long', 'short', locale='fr')}}</td>
+          <td>{{ vacation.dateHeureFin | format_datetime('long', 'short', locale='fr')}}</td>
+          <td>
+            <a href="{{ path('congres_editVacation', {id:vacation.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
