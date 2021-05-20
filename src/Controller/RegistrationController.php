@@ -34,7 +34,7 @@ class RegistrationController extends Controller {
     /**
      * @Route("/register", name="user_registration")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManagerCompte) {
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManagerCompte, \Swift_Mailer $mailer) {
 
         $this->licencieRepository = $entityManagerCompte->getRepository(Licencie::class);
         $this->compteRepository = $entityManagerCompte->getRepository(Compte::class);
@@ -75,6 +75,8 @@ class RegistrationController extends Controller {
                 
                
                 ///envoyer lien avec url active
+                $mail= $user->getEmail();
+                $this->envoieMailConfirm($mail,$urlActive, $mailer);
 
                 return $this->redirectToRoute('app_login');
             } else {
@@ -109,6 +111,17 @@ class RegistrationController extends Controller {
         return $this->render('security/registerValid.html.twig');
     }
     
+    
+    /*Envoie du mail avec lien confirmation*/
+    public function envoieMailConfirm($mail,$codeActivation, $mailer)
+{
+    $message = (new \Swift_Message('Validation compte mdl'))
+        ->setFrom('mdlamn.sio@gmail.com')
+        ->setTo($mail)
+        ->setBody('Bonjour, veuillez cliquer sur le lien suivant pour valider votre compte mdl:  http://mdl/register/' . $codeActivation)
+    ;
+    $mailer->send($message);
+}
     
     
     
