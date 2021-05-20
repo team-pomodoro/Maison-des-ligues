@@ -1,0 +1,35 @@
+{# empty Twig template #}
+{% extends 'base.html.twig' %}
+
+{% block title %} Tous les ateliers{% endblock %}
+{% block body %}
+<style>
+  .container{max-width: 95%!important;}
+</style>
+  <div class="container" style="padding-top:10px;">
+    <h1 style="text-center"> Liste des ateliers </h1>
+    <table class="table table-bordered table-striped table-info">
+      <thead class="table-danger">
+        <tr>
+          <th> Lubellé</th>
+          <th> Nombres de places maxi </th>
+          <th> Horaires </th>
+          <th> Nombres de thèmes </th>
+          <th> Actions </th>
+        </tr>
+      </thead>
+      {% for atelier in ateliers %}
+        <tr>
+          <td>{{ atelier.libelle}}</td>
+          <td>{{ atelier.nbPlaceMaxi}}</td>
+          <td>{{ atelier.vacations.libelle}}</td>
+          <td>{{atelier.themes | length}}</td>
+          <td>
+            <a href="{{ path('congres_editAtelier', {id:atelier.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+          </td>
+          {# <td><a href=" {{ path('navire_modifier', {id:navire.id}) }}"> Voir détails</a></td> #}
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}

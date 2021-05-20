@@ -1,0 +1,30 @@
+{# empty Twig template #}
+{% extends 'base.html.twig' %}
+
+{% block title %} Tous les thèmes {% endblock %}
+{% block body %}
+<style>
+  .container{max-width: 95%!important;}
+</style>
+  <div class="container" style="padding-top:10px;">
+    <h1 style="text-center"> Liste des thèmes </h1>
+    <table class="table table-bordered table-striped table-info">
+      <thead class="table-danger">
+        <tr>
+          <th> Libellé</th>
+          <th> Nombres d'ateliers </th>
+          <th> Actions </th>
+        </tr>
+      </thead>
+      {% for theme in themes %}
+        <tr>
+          <td>{{ theme.libelle}}</td>
+          <td>{{ theme.ateliers | length}}</td>
+          <td>
+            <a href="{{ path('congres_editTheme', {id:theme.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}

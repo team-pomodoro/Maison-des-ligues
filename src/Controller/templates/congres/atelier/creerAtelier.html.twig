@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Créer un atelier
+{% endblock %}
+ {% block body %}
+	{% if app.user %}
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER')  %}
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+			<div class="container" style="padding-top: 10px;padding-bottom: 10px;">
+				<h1 class="text-center">Création d'un nouvel atelier :</h1>
+				{{ form_start(form)}}
+				<div class="form-row">
+					<div class="form-group col-md-6" id=" some-custom-id">
+						{{ form_label(form.libelle, 'Libellé de l\'atelier') }}
+        {{ form_widget(form.libelle, { 'attr' :{'placeholder': 'Saisir le libellé de l\'atelier', 'class': "form-control"}}) }}
+      </div>
+      <div class="form-group col-md-6" id="some-custom-id">
+        {{ form_label(form.nbPlaceMaxi, 'Nombres de places maximum') }}
+        {{ form_widget(form.nbPlaceMaxi, {'attr': {'placeholder': 'Saisir le nombre de places', 'class': "form-control"}}) }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6" id="some-custom-id">
+        {{ form_label(form.themes, 'Thèmes') }}
+        {{ form_widget(form.themes) }}
+      </div>
+      <div class="col-md-3 ml-auto" id="some-custom-id">
+        {{ form_label(form.vacations, 'Horaire') }}
+        {{ form_widget(form.vacations) }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-3">
+      <div type="button" class="btn btn-info" data-toggle="modal" data-target="#modalTheme">Ajouter un thème</div>
+      </div>
+      <div class="col-md-3 ml-auto">
+      <div type="button" class="btn btn-info" data-toggle="modal" data-target="#modalVacation">Ajouter un horaire</div>
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success">Créer</button>
+  </div>
+  {{ form_end(form) }}
+  
+
+	<!-- Button trigger modal -->
+
+
+<!-- Modal  Theme -->
+<div class="modal fade" id="modalTheme" tabindex="-1" aria-labelledby="modalTheme" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Création d'un nouveau thème</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ form_start(formTheme, {'action': path('congres_theme'), 'method': 'POST'})}}
+        <div class="form-row">
+          <div class="form-group" id="some-custom-id">
+            {{ form_label(formTheme.libelle, 'Libellé du thème') }}
+            {{ form_widget(formTheme.libelle, { 'attr' :{'placeholder': 'Saisir le libellé du theme', 'class': "form-control"}}) }}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div type="button" class="btn btn-danger" data-dismiss="modal">Fermer</div>
+        <button type="submit" class="btn btn-success">Créer</button>
+        
+        {{form_end(formTheme)}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal  Theme -->
+<div class="modal fade" id="modalVacation" tabindex="-1" aria-labelledby="modalVacation" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Création d'une nouvelle vacation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ form_start(formVacation, {'action': path('congres_vacation'), 'method': 'POST'})}}
+        <div class="form-row">
+          <div class="form-group col-md-6" id="some-custom-id">
+            {{ form_label(formVacation.dateHeureDebut, 'Heure de début : ') }}
+            {{ form_widget(formVacation.dateHeureDebut, { 'attr' :{ 'class': "form-control", "onChange" : "libelleDate()"}}) }}
+          </div>
+          <div class="form-group col-md-6" id="some-custom-id">
+            {{ form_label(formVacation.dateHeureFin, 'Heure de fin :') }}
+            {{ form_widget(formVacation.dateHeureFin, { 'attr' :{'class': "form-control"}}) }}
+          </div>
+           <div class="form-group col-md-6" id="some-custom-id">
+            {{ form_label(formVacation.Libelle, 'Libelle :') }}
+            {{ form_widget(formVacation.Libelle, { 'attr' :{'class': "form-control", "readonly": "true", 'value' : ''}}) }}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div type="button" class="btn btn-danger" data-dismiss="modal">Fermer</div>
+        <button type="submit" class="btn btn-success">Créer</button>
+        
+        {{form_end(formVacation)}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.select_themes').select2();
+  });
+
+ 
+</script>
+{% else %}
+      <div class="alert alert-danger">Votre compte n'a pas le role nécessaire pour accéder à cette page. Retourner vers <a href="{{ path('home') }}">l'accueil</a></div>
+{% endif %}
+{% else %}
+      <div class="alert alert-danger">Vous n'êtes pas connecté. Retourner vers <a href="{{ path('home') }}">l'accueil</a> ou connectez-vous <a href="{{ path('app_login') }}">par ici.</a></div>
+{% endif %}
+
+
+
+  
+{% endblock %}
+
+

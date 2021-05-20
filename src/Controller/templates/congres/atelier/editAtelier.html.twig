@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Créer un atelier
+{% endblock %}
+ {% block body %}
+	{% if app.user %}
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER')  %}
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+			<div class="container" style="padding-top: 10px;padding-bottom: 10px;">
+				<h1 class="text-center">Modification de l'atelier :</h1>
+				{{ form_start(form)}}
+				<div class="form-row">
+					<div class="form-group col-md-6" id=" some-custom-id">
+						{{ form_label(form.libelle, 'Libellé de l\'atelier') }}
+        {{ form_widget(form.libelle, { 'attr' :{'placeholder': 'Saisir le libellé de l\'atelier', 'class': "form-control"}}) }}
+      </div>
+      <div class="form-group col-md-6" id="some-custom-id">
+        {{ form_label(form.nbPlaceMaxi, 'Nombres de places maximum') }}
+        {{ form_widget(form.nbPlaceMaxi, {'attr': {'placeholder': 'Saisir le nombre de places', 'class': "form-control"}}) }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6" id="some-custom-id">
+        {{ form_label(form.themes, 'Thèmes') }}
+        {{ form_widget(form.themes) }}
+      </div>
+      <div class="col-md-3 ml-auto" id="some-custom-id">
+        {{ form_label(form.vacations, 'Horaire') }}
+        {{ form_widget(form.vacations) }}
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success">Modifier</button>
+  </div>
+  {{ form_end(form) }}
+  
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.select_themes').select2();
+  });
+
+
+ 
+</script>
+{% else %}
+      <div class="alert alert-danger">Votre compte n'a pas le role nécessaire pour accéder à cette page. Retourner vers <a href="{{ path('home') }}">l'accueil</a></div>
+{% endif %}
+{% else %}
+      <div class="alert alert-danger">Vous n'êtes pas connecté. Retourner vers <a href="{{ path('home') }}">l'accueil</a> ou connectez-vous <a href="{{ path('app_login') }}">par ici.</a></div>
+{% endif %}
+
+
+
+  
+{% endblock %}
+
+
