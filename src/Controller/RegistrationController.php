@@ -62,21 +62,21 @@ class RegistrationController extends Controller {
 
 //            return $this->redirectToRoute('app_login');
             } elseif ($this->licencieRepository->numLicenceExiste($user->getNumLicence())) {
-                 //// créer le lien d'activation
+                //// créer le lien d'activation
                 $urlActive = $this->randString();
                 $user->setUrlActive($urlActive);
-                
+
                 //persister les donénes
                 $entityManager = $this->getDoctrine()->getManager();
 
 
                 $entityManager->persist($user);
                 $entityManager->flush();
-                
-               
+
+
                 ///envoyer lien avec url active
-                $mail= $user->getEmail();
-                $this->envoieMailConfirm($mail,$urlActive, $mailer);
+                $mail = $user->getEmail();
+                $this->envoieMailConfirm($mail, $urlActive, $mailer);
 
                 return $this->redirectToRoute('app_login');
             } else {
@@ -90,42 +90,34 @@ class RegistrationController extends Controller {
                         array('form' => $form->createView())
         );
     }
-    
-    
-    
+
     /**
      * @Route("/register/{id}", name="user_registration_validate")
      */
     public function registerValidate(string $id, Request $request, EntityManagerInterface $entityManagerCompte): Response {
-        
+
         $this->compteRepository = $entityManagerCompte->getRepository(Compte::class);
-        
-        
-        if($this->compteRepository->urlActiveExist($id)) {
-           if(!$this->compteRepository->isActive($id)){
-               $this->compteRepository->activerCompte($id);
-           }
-           
+
+
+        if ($this->compteRepository->urlActiveExist($id)) {
+            if (!$this->compteRepository->isActive($id)) {
+                $this->compteRepository->activerCompte($id);
+            }
         }
-        
+
         return $this->render('security/registerValid.html.twig');
     }
-    
-    
-    /*Envoie du mail avec lien confirmation*/
-    public function envoieMailConfirm($mail,$codeActivation, $mailer)
-{
-    $message = (new \Swift_Message('Validation compte mdl'))
-        ->setFrom('mdlamn.sio@gmail.com')
-        ->setTo($mail)
-        ->setBody('Bonjour, veuillez cliquer sur le lien suivant pour valider votre compte mdl:  http://mdl/register/' . $codeActivation)
-    ;
-    $mailer->send($message);
-}
-    
-    
-    
-    
+
+    /* Envoie du mail avec lien confirmation */
+
+    public function envoieMailConfirm($mail, $codeActivation, $mailer) {
+        $message = (new \Swift_Message('Validation compte mdl'))
+                ->setFrom('mdlamn.sio@gmail.com')
+                ->setTo($mail)
+                ->setBody('Bonjour, veuillez cliquer sur le lien suivant pour valider votre compte mdl:  http://mdl/register/' . $codeActivation)
+        ;
+        $mailer->send($message);
+    }
 
     function randString($length = 20) {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
