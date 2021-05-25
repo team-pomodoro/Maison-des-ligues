@@ -78,13 +78,13 @@ class Licencie
     private $cleWifi;
 
     /**
-     * @ORM\OneToOne(targetEntity=Qualite::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Qualite::class, inversedBy=Licencie::class,cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $qualite;
 
     /**
-     * @ORM\OneToOne(targetEntity=Club::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Club::class, inversedBy=Licencie::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $club;

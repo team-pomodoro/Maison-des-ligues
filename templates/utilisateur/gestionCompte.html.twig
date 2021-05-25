@@ -1,0 +1,47 @@
+{# templates/registration/register.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="js/gestionCompte.js"></script>
+{% endblock %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <br/>
+
+    {#    <p>Numéro de Licence : {{ app.user.username }}</p>    
+        <p>Nom : {{ app.user.nom }}</p>
+        <p>Prénom : {{ app.user.prenom }}</p>
+        <p>Date de naissance : {{ app.user.dateNaissance }}</p>
+        <p>E-mail : {{ app.user.email }}</p>#}
+    {#    <button class="" type="button">Modidier</button>#}
+
+    {{ form_start(form) }}
+
+    <h1 class="h3 mb-3 font-weight-normal text-center">Informations du compte</h1>
+    <label>Numéro de licence</label>
+    {{ form_widget(form.numLicence) }}
+    <label>Nom</label>
+    {{ form_widget(form.nom) }}
+    <label>Prénom</label>
+    {{ form_widget(form.prenom) }}
+    <label>Adresse mail</label>
+    {{ form_widget(form.email) }}
+
+
+    <div id="divModifier" class="invisible">
+
+        {#<label>mot de passe</label>
+        {{ form_widget(form.plainPassword.first) }}
+        <label>verifier mot de passe</label>
+        {{ form_widget(form.plainPassword.second) }}#}
+        <button type="submit">Enregistrer</button>
+        <button id="annuler" type="button">Annuler</button>
+    </div>
+
+
+    <button type="button" id="modifier">Modifier</button>
+    {{ form_end(form) }}
+{% endblock %}

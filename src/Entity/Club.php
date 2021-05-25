@@ -27,6 +27,7 @@ class Club
      */
     private $adresse1;
 
+    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -48,7 +49,7 @@ class Club
     private $tel;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Licencie::class)
+     * @ORM\OneToMany(targetEntity=Licencie::class,mappedBy=Club::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $licencies;

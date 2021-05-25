@@ -23,7 +23,7 @@ class Qualite
     private $LibelleQualite;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Licencie::class)
+     * @ORM\OneToMany(targetEntity=Licencie::class,mappedBy=Qualite::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $licencies;
